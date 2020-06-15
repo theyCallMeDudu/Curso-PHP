@@ -199,3 +199,44 @@
     $string = implode(", ", $names);
 
     echo $string;
+
+    echo "<hr>";
+
+    // end
+    // Retorna o último item de um array
+
+    echo "* end:<br>";
+
+    $objetos = ['carro', 'casa', 'lápis', 'borracha', 'cadeira', 'mesa'];
+    var_dump($objetos);
+    echo end($objetos);
+
+    echo "<hr>";
+
+
+    // array_filter ( array $array [, callable $callback [, int $flag = 0 ]] ) : array
+    // Filtra elementos de um array utilizando uma função callback
+
+    echo "* array_filter:<br>";
+
+    $ages = [12, 14, 16, 18, 20, 22, 40, 30, 50, 60];
+
+    $filteredAges = array_filter($ages, function($age){
+        return $age >= 18;
+    });
+
+    var_dump($filteredAges);
+
+    echo "<hr>";
+
+    // array_map(callback, $array)
+    // Aplica uma função em todos os elementos dos arrays dados
+
+    echo "* array_map:<br>";
+
+    $names = ['Eduardo', 'Gabriela', 'Tolkien', 'Aristides'];
+    $names = array_map(function($name){
+        return strtoupper($name);
+    }, $names);
+
+    var_dump($names);
