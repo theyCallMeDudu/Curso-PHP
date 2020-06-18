@@ -27,7 +27,10 @@
                     <?php
                         $sql = "SELECT * FROM cliente";
                         $resultado = mysqli_query($connect, $sql);
-                        while($dados = mysqli_fetch_array($resultado)):
+                        
+                        if(mysqli_num_rows($resultado) > 0):
+                        
+                            while($dados = mysqli_fetch_array($resultado)):
 
                     ?>
 
@@ -40,13 +43,47 @@
                             <a class="btn-floating orange" href="edicao.php?id=<?php echo $dados['id']; ?>">
                                 <i class="material-icons">edit</i>
                             </a>
-                            <a class="btn-floating red" href="">
-                            <i class="material-icons">delete</i>
+
+                            <a class="btn-floating red modal-trigger" id="#modal<?php echo $dados['id']; ?>" data-target="modal<?php echo $dados['id']; ?>" href="">
+                                <i class="material-icons">delete</i>
                             </a>
+
+                            <!-- Modal Structure -->
+                            <div id="modal<?php echo $dados['id']; ?>" class="modal">
+                                <div class="modal-content">
+                                    <h4>Excluir cliente</h4>
+                                    <p>Tem certeza que deseja excluir este cliente?</p>
+                                </div>
+
+                                <div class="modal-footer">
+                                    <form action="php-action/delete.php" method="POST">
+                                        <a href="#!" class="modal-close waves-effect waves-green btn-flat">
+                                            Cancelar
+                                        </a>
+
+                                        <input type="hidden" name="id" value="<?php echo $dados['id']; ?>">
+                                        <button type="submit" name="btn-deletar" class="btn red">Confirmar</button>
+                                    </form>
+                                </div>
+                            </div>
+
                         </td>
                     </tr>
 
-                        <?php endwhile; ?>
+                        <?php
+                                endwhile;
+                            else:
+                        ?>
+                                <tr>
+                                    <td>-</td>
+                                    <td>-</td>
+                                    <td>-</td>
+                                    <td>-</td>
+                                    <td>-</td>
+                                </tr>    
+                        <?php
+                            endif;
+                         ?>
                 </tbody>
             </table>
 
