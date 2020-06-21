@@ -5,11 +5,22 @@
     // Conexão
     require_once 'db-connect.php';
 
+    // Clear
+    function clear($input){
+        global $connect;
+        // sql
+        $var = mysqli_escape_string($connect, $input);
+
+        // xss
+        $var = htmlspecialchars($var);
+        return $var;
+    }
+
     if(isset($_POST['btn-cadastrar'])):
-        $nome = mysqli_escape_string($connect, $_POST['nome']);
-        $sobrenome = mysqli_escape_string($connect, $_POST['sobrenome']);
-        $email = mysqli_escape_string($connect, $_POST['email']);
-        $nascimento = mysqli_escape_string($connect, $_POST['nascimento']);
+        $nome = clear($_POST['nome']);
+        $sobrenome = clear($_POST['sobrenome']);
+        $email = clear($_POST['email']);
+        $nascimento = clear($_POST['nascimento']);
 
         $sql = "INSERT INTO cliente (nome, sobrenome, email, nascimento) VALUES ('$nome', '$sobrenome', '$email', '$nascimento')";
 
